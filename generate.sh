@@ -9,8 +9,14 @@ WORKDIR=$(pwd)
 
 function generate_package() {
     local name=$1
+    echo "package $name"
     docker run --rm -t -v$WORKDIR:/root/workdir toolchain:$name \
         bash -c "cd /opt && tar -zcf $name.tar.gz $name && mv $name.tar.gz /root/workdir/latest"
+        
+    if [ ! -f $WORKDIR/latest/$name.tar.gz ]; then
+        echo "$WORKDIR/latest/$name.tar.gz not found!"
+        exit 1
+    fi
 }
 
 function generate_toolchain() {
@@ -30,7 +36,7 @@ function generate_toolchain() {
 
 for dir in $(ls); do
     if [ -d $dir ] && [ -f "$dir/Dockerfile" ] && [ "$dir" != "latest" ]; then
-        generate_toolchain $dir
+        generate_toolchain $dir && ls -lR $WORKDIR
     fi
 done
 

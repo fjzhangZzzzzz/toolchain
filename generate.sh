@@ -35,8 +35,9 @@ function generate_toolchain() {
     generate_package $name
 }
 
-cd $WORKDIR
-for dir in $(ls); do
+ls $WORKDIR
+ls -lR $WORKDIR
+for dir in $(ls $WORKDIR); do
     echo "for item $dir"
     if [ -d $dir ] && [ -f "$dir/Dockerfile" ] && [ "$dir" != "latest" ]; then
         generate_toolchain $dir && ls -lR $WORKDIR

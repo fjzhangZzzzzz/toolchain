@@ -3,7 +3,7 @@
 # 根目录下除 latest 外，每个子目录代表一个交叉编译镜像标签
 # 子目录中构建交叉编译工具链结果会存放在 /opt 目录下，目录名同子目录名
 
-set -e
+set -xe
 
 WORKDIR=$(pwd)
 
@@ -39,7 +39,7 @@ ls $WORKDIR
 ls -lR $WORKDIR
 for dir in $(ls $WORKDIR); do
     echo "for item $dir"
-    if [ -d $dir ] && [ -f "$dir/Dockerfile" ] && [ "$dir" != "latest" ]; then
+    if [ -d $WORKDIR/$dir ] && [ -f "$WORKDIR/$dir/Dockerfile" ] && [ "$dir" != "latest" ]; then
         generate_toolchain $dir && ls -lR $WORKDIR
     fi
 done

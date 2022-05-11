@@ -25,7 +25,7 @@ function generate_toolchain() {
 
     docker image prune -f && docker container prune -f
 
-    generate_package $dir
+    generate_package $name
 }
 
 for dir in $(ls); do

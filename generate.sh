@@ -11,12 +11,12 @@ function generate_package() {
     local name=$1
     echo "package $name"
     docker images
-    #docker run --rm -t -v$WORKDIR:/root/workdir toolchain:$name \
-    #    bash -c "cd /opt && tar -zcf $name.tar.gz $name && mv $name.tar.gz /root/workdir/latest"
+    docker run --rm -t -v$WORKDIR:/root/workdir toolchain:$name \
+        bash -c "cd /opt && tar -zcf $name.tar.gz $name && mv $name.tar.gz /root/workdir/latest"
         
     if [ ! -f $WORKDIR/latest/$name.tar.gz ]; then
         echo "$WORKDIR/latest/$name.tar.gz not found!"
-        # exit 1
+        exit 1
     fi
 }
 
@@ -29,14 +29,12 @@ function generate_toolchain() {
 
     echo "build $name"
     cd $WORKDIR/$name
-    echo "docker build -t toolchain:$name ."
-    # docker build -t toolchain:$name .
+    docker build -t toolchain:$name .
     docker image prune -f && docker container prune -f
     generate_package $name
 }
 
 ls $WORKDIR
-ls -lR $WORKDIR
 for dir in $(ls $WORKDIR); do
     echo "for item $dir"
     if [ -d $WORKDIR/$dir ] && [ -f "$WORKDIR/$dir/Dockerfile" ] && [ "$dir" != "latest" ]; then

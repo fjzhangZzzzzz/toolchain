@@ -27,4 +27,5 @@ jobs:
       run: |
         bash generate.sh
         docker images
+        docker tag toolchain:latest fjzhangzzz/toolchain:latest
         docker push fjzhangzzz/toolchain:latest

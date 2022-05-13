@@ -37,9 +37,7 @@ A collection of cross-compilation toolchains
 ### Makefile
 ```bash
 docker run --rm -it fjzhangzzz/toolchain:latest \
-    make CC=powerpc64-linux-gnu-gcc \
-         CXX=powerpc64-linux-gnu-g++ \
-         LD=powerpc64-linux-gnu-ld \
+    make CC=powerpc64-linux-gnu-gcc CXX=powerpc64-linux-gnu-g++ LD=powerpc64-linux-gnu-ld \
          -f /path/to/your/Makefile
 ```
 

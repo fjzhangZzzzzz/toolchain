@@ -12,7 +12,7 @@ A collection of cross-compilation toolchains
 
 ### powerpc64-linux-gnu
 
-- OS: CentOS-7.9.2009
+- OS: Linux
 - Kernel: 3.10.0-1160
 - Arch: powerpc64
 - Glibc: 2.17
@@ -22,7 +22,7 @@ A collection of cross-compilation toolchains
 
 ### powerpc64le-linux-gnu
 
-- OS: CentOS-7.9.2009
+- OS: Linux
 - Kernel: 3.10.0-1160
 - Arch: powerpc64le
 - Glibc: 2.17

@@ -19,6 +19,7 @@ A collection of cross-compilation toolchains
 - Binutils: 2.27
 - GCC: 4.9.4
 - CrossPrefix: powerpc64-linux-gnu-
+- InstallPath: /opt/powerpc64-linux-gnu
 
 ### powerpc64le-linux-gnu
 
@@ -29,6 +30,7 @@ A collection of cross-compilation toolchains
 - Binutils: 2.27
 - GCC: 4.9.4
 - CrossPrefix: powerpc64le-linux-gnu-
+- InstallPath: /opt/powerpc64le-linux-gnu
 
 ## Usage
 

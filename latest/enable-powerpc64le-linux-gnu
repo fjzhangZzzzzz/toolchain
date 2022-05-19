@@ -1,0 +1,13 @@
+export TARGET_CPU=ppc64le
+export TOOLCHAIN_ROOT=/opt/powerpc64le-linux-gnu
+[ -f /lib64/ld64.so.1 ] && rm -f /lib64/ld64.so.1
+[ -f /lib64/ld64.so.2 ] && rm -f /lib64/ld64.so.2
+ln -s ${TOOLCHAIN_ROOT}/lib64/ld-2.17.so /lib64/ld64.so.2
+export CROSS_EXEC_PREP="LD_LIBRARY_PATH=${TOOLCHAIN_ROOT}/lib64:${TOOLCHAIN_ROOT}/usr/lib64"
+export TOOLCHAIN_PREFIX=powerpc64le-linux-gnu-
+export CC=${TOOLCHAIN_PREFIX}gcc
+export CPP=${TOOLCHAIN_PREFIX}cpp
+export CXX=${TOOLCHAIN_PREFIX}g++
+export LD=${TOOLCHAIN_PREFIX}ld
+export AS=${TOOLCHAIN_PREFIX}gcc
+export AR=${TOOLCHAIN_PREFIX}ar

@@ -30,6 +30,10 @@ function generate_toolchain() {
     echo "build $name"
     cd $WORKDIR/$name
     docker build -t toolchain:$name .
+    if [ $? -ne 0 ]; then
+        echo "failed to build $name: $?"
+        exit 1
+    fi
     docker image prune -f && docker container prune -f
     generate_package $name
 }

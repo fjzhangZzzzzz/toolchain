@@ -5,6 +5,10 @@ on:
   #  branches: [ main ]
   workflow_dispatch:
 
+env:
+  DOCKERHUB_USERNAME: fjzhangzzz
+  IMAGE_NAME: toolchain
+
 jobs:
 
   build:
@@ -18,12 +22,12 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
-        username: fjzhangzzz
+        username: ${{ env.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and Push the Docker image
       run: |
         bash generate.sh
         docker images
-        docker tag toolchain:latest fjzhangzzz/toolchain:latest
-        docker push fjzhangzzz/toolchain:latest
+        docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+        docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest

@@ -1,0 +1,34 @@
+name: Docker Image CI for linux/aarch64
+
+on:
+  #push:
+  #  branches: [ main ]
+  workflow_dispatch:
+
+env:
+  DOCKERHUB_USERNAME: fjzhangzzz
+  IMAGE_NAME: toolchain
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ env.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and Push the Docker image
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+        cd linux-aarch64 && docker build -t ${IMAGE_NAME}:linux-aarch64 .
+        docker images
+        docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:linux-aarch64
+        docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:linux-aarch64
